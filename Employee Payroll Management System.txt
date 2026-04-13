@@ -1,0 +1,110 @@
+import java.util.Scanner;
+
+// Parent Class
+class Employee {
+
+    String name;
+    int id;
+    double baseSalary;
+
+    Employee(String name, int id, double baseSalary) {
+        this.name = name;
+        this.id = id;
+        this.baseSalary = baseSalary;
+    }
+
+    double calculateSalary() {
+        return baseSalary;
+    }
+
+    void displayDetails() {
+        System.out.println("Employee Name: " + name);
+        System.out.println("Employee ID: " + id);
+    }
+}
+
+// Child Class 1
+class FullTimeEmployee extends Employee {
+
+    double bonus;
+
+    FullTimeEmployee(String name, int id, double baseSalary, double bonus) {
+        super(name, id, baseSalary);
+        this.bonus = bonus;
+    }
+
+    double calculateSalary() {
+        return baseSalary + bonus;
+    }
+}
+
+// Child Class 2
+class PartTimeEmployee extends Employee {
+
+    int hoursWorked;
+    double hourlyRate;
+
+    PartTimeEmployee(String name, int id, int hoursWorked, double hourlyRate) {
+        super(name, id, 0);
+        this.hoursWorked = hoursWorked;
+        this.hourlyRate = hourlyRate;
+    }
+
+    double calculateSalary() {
+        return hoursWorked * hourlyRate;
+    }
+}
+
+// Main Class
+public class PayrollSystem {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("=== Employee Payroll Management System ===");
+
+        System.out.println("1. Full Time Employee");
+        System.out.println("2. Part Time Employee");
+
+        System.out.print("Enter Choice: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Employee Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Employee ID: ");
+        int id = sc.nextInt();
+
+        Employee emp;
+
+        if (choice == 1) {
+
+            System.out.print("Enter Base Salary: ");
+            double baseSalary = sc.nextDouble();
+
+            System.out.print("Enter Bonus: ");
+            double bonus = sc.nextDouble();
+
+            emp = new FullTimeEmployee(name, id, baseSalary, bonus);
+
+        } else {
+
+            System.out.print("Enter Hours Worked: ");
+            int hours = sc.nextInt();
+
+            System.out.print("Enter Hourly Rate: ");
+            double rate = sc.nextDouble();
+
+            emp = new PartTimeEmployee(name, id, hours, rate);
+        }
+
+        System.out.println("\n--- Employee Details ---");
+
+        emp.displayDetails();
+        System.out.println("Salary: " + emp.calculateSalary());
+
+        sc.close();
+    }
+}
